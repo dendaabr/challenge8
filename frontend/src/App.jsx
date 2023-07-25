@@ -1,12 +1,15 @@
+import React, { useState } from "react"
 import { Routes, Route, BrowserRouter } from "react-router-dom"
 import Home from "./components/Home"
 import CreatePlayer from "./components/CreatePlayer"
 import Swagger from "./components/Swagger"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Container from "react-bootstrap/esm/Container"
 
 function App() {
+
   return (
-    <div className="App">
+    <Container>
       <BrowserRouter>
         <Routes>
           <Route>
@@ -16,7 +19,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </div>
+    </Container>
   )
 }
 
