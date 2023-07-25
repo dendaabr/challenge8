@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import axios from "../lib/axios";
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Container from "react-bootstrap/esm/Container";
 
 export default function Home({ refresh }) {
     const [players, setPlayers] = useState([]);
@@ -21,16 +26,33 @@ export default function Home({ refresh }) {
     }, [refresh]);
 
     return (
-        <div className="container mt-5 ">
+        <Container fluid>
 
             <div>
-                <ul>
-                    <li><NavLink to={"/player/create"}>Create Player</NavLink></li>
-                    <li><NavLink to={"/docs"}>Swagger</NavLink></li>
-                </ul>
                 <h1>Table Player</h1>
+                <Navbar expand="md" className="bg-body-tertiary">
+                    <Container fluid>
+                        <Nav
+                            className="me-auto"
+                            style={{ text: 'text-decoration-none' }}
+                        >
+                            <Button variant="outline-success"><NavLink to={"/player/create"}>Add New Player</NavLink></Button>
+                            <Button variant="outline-success"><NavLink to={"/docs"}>Swagger</NavLink></Button>
+                        </Nav>
+                        <Form className="d-flex">
+                            <Form.Control
+                                type="search"
+                                placeholder="Search"
+                                className="me-2"
+                                aria-label="Search"
+                            />
+                            <Button variant="outline-success">Search</Button>
+                        </Form>
+                    </Container>
+                </Navbar>
+                <br></br>
                 <table className="table table-bordered">
-                    <thead>
+                    <thead striped bordered hover>
                         <tr>
                             <th>ID</th>
                             <th>Username</th>
@@ -38,9 +60,9 @@ export default function Home({ refresh }) {
                             <th>Password</th>
                             <th>Exp</th>
                             <th>Level</th>
-                            <th>Create</th>
-                            <th>Update</th>
-                            <th>Delete</th>
+                            <th>CreateAt</th>
+                            <th>UpdateAt</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -53,14 +75,13 @@ export default function Home({ refresh }) {
                                     <td>{players.password}</td>
                                     <td>{players.experience}</td>
                                     <td>{players.lvl}</td>
-                                    <td>{players.create}</td>
-                                    <td>{players.update}</td>
-                                    <td>{players.delete}</td>
+                                    <td>{players.createAt}</td>
+                                    <td>{players.updateAt}</td>
                                 </tr>
                             ))}
                     </tbody>
                 </table>
             </div>
-        </div>
+        </Container >
     );
 }
