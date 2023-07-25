@@ -1,15 +1,18 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from '../lib/axios';
 
+
+
 export default function CreatePlayer({ onRefresh }) {
     const refUsername = useRef();
     const refEmail = useRef();
     const refPassword = useRef();
     const refExp = useRef();
+    const [succes, setSucces] = useState(false);
 
     const onSumbit = (e) => {
         e.preventDefault();
@@ -25,18 +28,22 @@ export default function CreatePlayer({ onRefresh }) {
                 if (data.status !== 201) {
                     alert("Please try again");
                 }
-
-                onRefresh();
+                setSucces(true);
             })
             .catch((err) => {
                 console.log(err);
             });
     };
 
+    if (succes) {
+        console.log(succes);
+        window.location = "/";
+    }
+
     return (
         <Container>
             <Row md={4}>
-                <Form onSumbit={onSumbit}>
+                <Form>
                     <h1>Create Player New</h1>
 
                     <Form.Group className="mb-3">
@@ -59,7 +66,7 @@ export default function CreatePlayer({ onRefresh }) {
                         <Form.Control type="number" ref={refExp} placeholder="Enter experience" />
                     </Form.Group>
 
-                    <Button className='btn btn-succes btn-sm' type="submit">
+                    <Button className='btn btn-succes btn-sm' type="submit" onClick={onSumbit}>
                         Submit
                     </Button>
                     <Button className='btn btn-danger btn-sm' type="Reset">
@@ -68,6 +75,5 @@ export default function CreatePlayer({ onRefresh }) {
                 </Form>
             </Row>
         </Container>
-
     );
 }
